@@ -1,49 +1,170 @@
 var dataSources=[
     {
-        url:"sampledata/DEPSampleData.json",
-        intervals:{
-            number:6,
-            round:true,
-            type:"normal"
-        },
-        title:"Total Events",
-        description:"Total Events for this demo",
-        field:"data.current.critical",
-        color:"darkblue",
-        infoFormat:"daily",
-        areaField:"area",
-        graphs:["evolution","comparison"]
-    },
-    {
-        url:"sampledata/DEPSampleMov.json",
+        url:"data/dep-people.json",
         intervals:{
             number:6,
             round:true,
             type:"normal"
         },
         areaField:"from",
-        title:"Travel Intentions",
-        description:"Travel Intentions for the demo",
-        field:"people",
-        color:"darkgreen",
-        infoFormat:"movement",
+        title:"Movement",
+        description:"Movement based on phone data",
+        field:"phones",
+        color:"orange",
+        infoFormat:"phones",
         graphs:[]
     },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true,
+            type:"normal"
+        },
+        title:"Total Deaths",
+        description:"Total Deaths since the beginning of the pandemy",
+        field:"data.total.deaths",
+        color:"black",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true,
+            type:"normal"
+        },
+        title:"Total Recoveries",
+        description:"Total Recoveries since the beginning of the pandemy",
+        field:"data.total.recoveries",
+        color:"green",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true
+        },
+        title:"Current Critical",
+        description:"Number of patients in critical condition as of this date",
+        field:"data.current.critical",
+        color:"red",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true
+        },
+        title:"Current Hospital",
+        description:"Number of patients at the hospital as of this date",
+        field:"data.current.hospital",
+        color:"#1515cf",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true
+        },
+        title:"New Critical",
+        description:"Number of patients in a critical condition in this date",
+        field:"data.new.critical",
+        color:"red",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true
+        },
+        title:"New Deaths",
+        description:"Number of patients that died in this date",
+        field:"data.new.deaths",
+        color:"black",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true
+        },
+        title:"New Hospital",
+        description:"Number of patients that entered the hospital in this date",
+        field:"data.new.hospital",
+        color:"#1515cf",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true
+        },
+        title:"New Recoveries",
+        description:"Number of patients that recovered in this date",
+        field:"data.new.recoveries",
+        color:"green",
+        infoFormat:"daily",
+        graphs:["evolution","comparison","newcases"]
+    },
+    {
+        url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/#YYYY#/#MM#/#DD#/00",
+        intervals:{
+            number:6,
+            round:true
+        },
+        title:"Demographics",
+        description:"Demographic data",
+        field:"data.new.recoveries",
+        color:"lightgray",
+        infoFormat:"demographic",
+        graphs:["evolution","comparison","newcases"]
+    },
+    //ITALY DEMO
+    // {
+    //     url:"/map/data/dpc-covid19-ita-province.json",
+    //     areaField:"codice_provincia",
+    //     nameField:"reg_name",
+    //     intervals:{
+    //         number:7,
+    //         round:true,
+    //         type:"normal"
+    //     },
+    //     title:"Italy numbers",
+    //     description:"Infected numbers just for Italy",
+    //     field:"totale_casi",
+    //     color:"orange",
+    //     infoFormat:"dailyItaly",
+    //     graphs:["evolution","comparison","newcases"]
+    // },
 ];
 
 var GraphsDescription=[
     {
         id:"evolution",
         title:"Evolution",
-        description:"Graph with evolution this department",
+        description:"Graph with evolution of all data for this department",
         type:"line",
         needSelectedArea:true,
         data:{
-            url:"sampleData/DEPEvolution#AREA#.json",
+            url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/until?yyyy=#YYYY#&mm=#MM#&dd=#DD#&area=#AREA#",
             x:"date",
-            y:["data.current.critical","total.critical"],
+            y:["data.total.deaths","data.total.recoveries","data.total.critical","data.total.hospital"],
             titleX:"",
-            titleSeries:["Current","Total"],
+            titleSeries:["Deaths","Recoveries","Critical","Hospital"],
         }
     },
     {
@@ -60,27 +181,71 @@ var GraphsDescription=[
             titleSeries:["Men","Women"],
         }
     },
+    {
+        id:"newcases",
+        title:"New Cases",
+        description:"Graph with new cases",
+        type:"line",
+        needSelectedArea:true,
+        data:{
+            url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/until?yyyy=#YYYY#&mm=#MM#&dd=#DD#&area=#AREA#",
+            x:"date",
+            y:["data.new.deaths","data.new.recoveries","data.new.critical","data.new.hospital"],
+            titleX:"",
+            titleSeries:["Deaths","Recoveries","Critical","Hospital"],
+        }
+
+    }
+
 ];
 
 var InfoFormats=[
     {
-        id:"movement",
+        id:"phones",
         format:[
             {
-                title:"Movement Intentions",
+                title:"Phones",
                 type:"section"
             },
             {
                 type:"table",
-                fields:["to","people"],
-                titles:["To Dep","# of people"],
+                fields:["to","phones"],
+                titles:["To Dep","# of phones"],
                 width:["50px","auto"]
             },
             {
                 type:"mapflow",
                 fieldTo:"to",
-                fieldValue:"people"
+                fieldValue:"phones"
             }
+        ]
+    },
+    {
+        id:"dailyItaly",
+        format:[
+            {
+                title:"Current situation",
+                type:"section"
+            },
+            {
+                title:"Current Infected",
+                field:"totale_casi",
+                color:"orange"
+            },
+        ]
+    },
+    {
+        id:"demographic",
+        format:[
+            {
+                title:"Current situation",
+                type:"section"
+            },
+            {
+                title:"Current Critical",
+                field:"data.current.critical",
+                color:"red"
+            },
         ]
     },
     {
@@ -96,8 +261,104 @@ var InfoFormats=[
                 color:"red"
             },
             {
-                title:"Total Critical",
-                field:"total.critical"
+                title:"Current Hospital",
+                field:"data.current.hospital"
+            },
+
+            {
+                title:"New data",
+                type:"section"
+            },
+            {
+                title:"critical",
+                field:"data.new.critical",
+                color:"red"
+            },
+            {
+                title:"deaths",
+                field:"data.new.deaths",
+                color:"black"
+            },
+            {
+                title:"hospital",
+                field:"data.new.hospital"
+            },
+            {
+                title:"recoveries",
+                field:"data.new.recoveries",
+                color:"green"
+            },
+
+            {
+                title:"Total",
+                type:"section"
+            },
+            {
+                title:"critical",
+                field:"data.total.critical",
+                color:"red"
+            },
+            {
+                title:"deaths",
+                field:"data.total.deaths",
+                color:"black"
+            },
+            {
+                title:"hospital",
+                field:"data.total.hospital"
+            },
+            {
+                title:"recoveries",
+                field:"data.total.recoveries",
+                color:"green"
+            },
+
+            {
+                title:"Women situation",
+                type:"section"
+            },
+            {
+                title:"current critical",
+                field:"data.women.current.critical",
+                color:"red"
+            },
+            {
+                title:"current hospital",
+                field:"data.women.current.critical"
+            },
+            {
+                title:"total deaths",
+                field:"data.women.total.deaths",
+                color:"black"
+            },
+            {
+                title:"total recoveries",
+                field:"data.women.total.recoveries",
+                color:"green"
+            },
+
+            {
+                title:"Men situation",
+                type:"section"
+            },
+            {
+                title:"current critical",
+                field:"data.men.current.critical",
+                color:"red"
+            },
+            {
+                title:"current hospital",
+                field:"data.men.current.critical"
+            },
+            {
+                title:"total deaths",
+                field:"data.men.total.deaths",
+                color:"black"
+            },
+            {
+                title:"total recoveries",
+                field:"data.men.total.recoveries",
+                color:"green"
             },
 
         ]
@@ -196,11 +457,19 @@ var Simulations=[
 
 var GeoLayers=[
     {
-        id:"POISample",
-        title:"POI Sample",
-        url:"sampledata/POISample.geojson",
-        display:true,
-        icon:'icon_sample.png',
+        id:"Hospitals",
+        title:"Hospitals",
+        url:"data/POI_hospitals-92_93_94_95_75_77_78.geojson",
+        display:false,
+        icon:'icon_hospital.png',
+        nameField:'raison_sociale'        
+    },
+    {
+        id:"Reanimation",
+        title:"Reanimation",
+        url:"data/POI_reanimations_centers.geojson",
+        display:false,
+        icon:'icon_reanimation.png',
         nameField:'name'        
     },
 ];
@@ -212,8 +481,10 @@ var MAPSOURCE={
     zoom:6,
     codIndex:"code"
 }
-
-var Languages={
-    "English":"en",
-    "Français":"fr"
-}
+// var MAPSOURCE={
+//     title:"Italy",
+//     file:"maps/departments.IT.geojson",
+//     center:[41, 11],
+//     zoom:6,
+//     codIndex:"prov_istat_code_num"
+// }

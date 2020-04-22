@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAPDASH</title>
+    <title>COVID-IA MAP</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <link rel="stylesheet" href="assets/style.css"/>
-    <link rel="stylesheet" href="plugins/leaflet-sidebar-v2.min.css"/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
     <script src="plugins/leaflet-sidebar-v2.min.js"></script>
+    <!--<script src="plugins/leaflet.migrationLayer.min.js"></script>-->
     <script src="plugins/leaflet-migrationLayer.js"></script>
-    <script src="plugins/Translation.js"></script>
+    <link rel="stylesheet" href="plugins/leaflet-sidebar-v2.min.css"/>
     <script src="js/do.js"></script>
     <script src="js/interact.js"></script>
     <script src="config.js"></script>
+    <script src="plugins/Translation.js"></script>
 </head>
 <body>
     <div id="mapid"></div>
@@ -23,31 +24,59 @@
     <div id="sidebar" class="leaflet-sidebar collapsed">
         <div class="leaflet-sidebar-tabs">
             <ul role="tablist"> 
-                <li><a href="#intro" role="tab"><span class="iconify" data-icon="mdi:map" data-inline="false"></span></a></li>
+                <!--COVIDIA-->
+                <li><a href="#intro" role="tab"><img src="assets/covidia.png" width=30px></a></li>
+                <!--CHOOSE DATA-->
                 <li><a href="#data" role="tab"><div class="iconify" data-icon="mdi:database-search" data-inline="false"></div></a></li>
-                <li><a href="#info" role="tab"><div class="iconify" data-icon="mdi:information-variant" data-inline="false"></div></a></li>
+                <!--SIMULATE-->
+                <li><a href="#simulate" role="tab"><div class="iconify" data-icon="mdi:steering" data-inline="false"></div></a></li>
+                <!--GRAPHS-->
                 <li><a href="#graphs" role="tab"><div class="iconify" data-icon="mdi:chart-line" data-inline="false"></div></a></li>
-                <li class="disabled"><a href="#simulate" role="tab"><div class="iconify" data-icon="mdi:steering" data-inline="false"></div></a></li>
+                <!--INFO-->
+                <li><a href="#info" role="tab"><div class="iconify" data-icon="mdi:information-variant" data-inline="false"></div></a></li>
             </ul>
 
-            <ul role="tablist">
+            <ul role="tablist"> <!-- bottom aligned tabs -->
+                <!--SEARCH-->
                 <li><a href="#search" role="tab"><div class="iconify" data-icon="mdi:map-search-outline" data-inline="false"></div></a></li>
+                <!--LAYERS-->
                 <li><a href="#layers" role="tab"><div class="iconify" data-icon="mdi:layers-triple-outline" data-inline="false"></div></a></li>
             </ul>
         </div>
 
+        <!-- Tab panes -->
         <div class="leaflet-sidebar-content">
             <div class="leaflet-sidebar-pane" id="intro">
-                <span data-localize="menu.intro">Intro</span>
+                <img src="assets/covidia.png"><br>
+
+                <span data-localize="menu.intro1">Intro to the project and explain what you can do in the site and how you should start.<br>
+                Start by clicking on the data source selection:</span><a onclick="sidebar.open('data')"><div class="iconify" data-icon="mdi:database-search" data-inline="false"></div></a>
+                <br><br>
+                <div class="spaceBelow" data-localize="menu.exp">Menu explained:</div>
+                <div style="display:grid;grid-template-columns:40px auto;grid-auto-flow:row;">
+                    <div class="iconify spaceBelow" data-icon="mdi:database-search" data-inline="false"></div>
+                    <div data-localize="menu.data">Data selection. Select the data source to be displayed in the map.</div>
+                    <div class="iconify spaceBelow" data-icon="mdi:steering" data-inline="false"></div>
+                    <div data-localize="menu.sim">Perform simulations</div>
+                    <div class="iconify spaceBelow" data-icon="mdi:chart-line" data-inline="false"></div>
+                    <div data-localize="menu.charts">Display data in graphical format. The graphs available are dependent on the data source selected.</div>
+                    <div class="iconify spaceBelow" data-icon="mdi:information-variant" data-inline="false"></div>
+                    <div data-localize="menu.area">Info on the current area selection</div>
+                    <div class="iconify spaceBelow" data-icon="mdi:map-search-outline" data-inline="false"></div>
+                    <div data-localize="menu.search">Search</div>
+                    <div class="iconify spaceBelow" data-icon="mdi:layers-triple-outline" data-inline="false"></div>
+                    <div data-localize="menu.layers">Display/Hide layers</div>
+                </div>
             </div>
 
             <div class="leaflet-sidebar-pane" id="simulate">
-                <h1 class="leaflet-sidebar-header"><span data-localize="simulate.choose">Choose Simulation</span><div class="leaflet-sidebar-close">X</div></h1>
+                <h1 class="leaflet-sidebar-header"><span data-localize="simulate.choose">Choose Simulation to execute</span><div class="leaflet-sidebar-close">X</div></h1>
                 <div style="margin: 10px 2px 10px 2px;">
                     <span data-localize="simulate.filter">Filter data:</span>
                     <input type="text" id="divSimSearch" style="width:100%" onkeyup="Do.SimShow()">
                 </div>
                 <div id="divSimInner"></div>
+                <div style="clear: both;"></div>
                 <div id="divSimFields"></div>
                 <div id="divSimResults"></div>
             </div>
@@ -98,9 +127,10 @@
             </div>
         </div>
     </div>
+<script>
 
-    <script>
-        window.onload=initMapDash;
+window.onload=initMapDash;
+
     </script>
 </body>
 </html>

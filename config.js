@@ -488,3 +488,8 @@ var MAPSOURCE={
 //     zoom:6,
 //     codIndex:"prov_istat_code_num"
 // }
+
+var Languages={
+    "English":"en",
+    "Français":"fr"
+}

@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COVID-IA MAP</title>
+    <title>MAPDASH</title>
+    <link rel="shortcut icon" href="assets/favicon.ico"> 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <link rel="stylesheet" href="assets/style.css"/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
     <script src="plugins/leaflet-sidebar-v2.min.js"></script>
-    <!--<script src="plugins/leaflet.migrationLayer.min.js"></script>-->
     <script src="plugins/leaflet-migrationLayer.js"></script>
     <link rel="stylesheet" href="plugins/leaflet-sidebar-v2.min.css"/>
     <script src="js/do.js"></script>
     <script src="js/interact.js"></script>
-    <script src="config.js"></script>
-    <script src="plugins/Translation.js"></script>
+    <script src="js/initMapDash.js"></script>
 </head>
 <body>
     <div id="mapid"></div>
@@ -127,10 +126,8 @@
             </div>
         </div>
     </div>
-<script>
-
-window.onload=initMapDash;
-
+    <script>
+        window.onload=initMapDash('config/covidia.json');
     </script>
 </body>
 </html>

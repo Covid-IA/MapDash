@@ -58,21 +58,6 @@ var Do={
         }
     },
     _MapCore:function(DS,data){
-        //CHEATING, I KNOW, THIS IS BECAUSE THE SOURCE DATA AVAILABLE HAD A FLAT STRUCTURE
-        //AND NOT CLEANED. NEED TO ADD A FILTER TO IT (TODO)
-        if (MAPSOURCE.title=="Italy"){ 
-            var lixo=data;
-            var lixo2=[];
-            lixo.forEach(j=>{
-                if (j.data=="2020-03-19T17:00:00")
-                {
-                    lixo2.push(j);
-                }
-            })
-            data=lixo2;
-        }
-        //CHEAT ENDS HERE
-
         var dataToShow=[];
         var j=data;
         lastData=j;
@@ -119,7 +104,6 @@ var Do={
         newDataToShow.push({area:lastArea, value:total});
 
 
-        //var max=Math.max.apply(Math, dataToShow.map(function(o) { return o.value; }))
         var nIntervals=format.intervals.number;
 
         //DEFINE GRADES "percentile" or "normal"

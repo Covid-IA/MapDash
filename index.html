@@ -14,6 +14,7 @@
     <script src="plugins/leaflet-migrationLayer.js"></script>
     <link rel="stylesheet" href="plugins/leaflet-sidebar-v2.min.css"/>
     <script src="js/do.js"></script>
+    <script src="config/simulationConf.js"></script>
     <script src="js/interact.js"></script>
     <script src="js/initMapDash.js"></script>
 </head>
@@ -32,7 +33,7 @@
                 <!--GRAPHS-->
                 <li><a href="#graphs" role="tab"><div class="iconify" data-icon="mdi:chart-line" data-inline="false"></div></a></li>
                 <!--SIMULATE-->
-                <li class="disabled"><a href="#simulate" role="tab"><div class="iconify" data-icon="mdi:steering" data-inline="false"></div></a></li>
+                <li><a href="#simulate" role="tab"><div class="iconify" data-icon="mdi:steering" data-inline="false"></div></a></li>
             </ul>
 
             <ul role="tablist"> <!-- bottom aligned tabs -->
@@ -80,7 +81,11 @@
                 <div id="divSimInner"></div>
                 <div style="clear: both;"></div>
                 <div id="divSimFields"></div>
-                <div id="divSimResults"></div>
+                <div id="divSimVisualisations"></div>
+                <div>
+                    <h3 id="simuInfoTitle"></h3>
+                    <div id="divSimGraph"></div>
+                </div>
             </div>
 
             <div class="leaflet-sidebar-pane" id="search">

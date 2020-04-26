@@ -10,6 +10,23 @@ var sidebar;
 var grades=[];
 var Layer_Legend=null;
 var selectedArea=null;
+// very crude observable pattern, to improve drastically using vue.
+var selectedAreaObservable = {
+    currentValue: null,
+    observers: {},
+    subscribe: function(key, callback){
+        this.observers[key] = callback;
+    },
+    unsubscribe: function(key) {
+        delete this.observers[key];
+    },
+    setValue: function(newValue) {
+        this.currentValue = newValue;
+        for (const observer in this.observers) {
+            this.observers[observer].call(null, this.currentValue);
+        }
+    }
+}
 
 var mapLayers=[
     {id:"polygons",title:"Polygons",display:true},
@@ -416,7 +433,7 @@ var Do={
         document.getElementById("divGraphSelection").innerHTML=gHTML;
     },
     GraphDraw:async function(n){
-        if (!selectedArea){
+        if (!selectedAreaObservable.currentValue){
             document.getElementById("divGraph").innerHTML="Select area in the map";
             document.getElementById("divGraph").style.display="block";
             return;
@@ -489,6 +506,69 @@ var Do={
     
         Plotly.newPlot('divGraph', trace, layout);
     },
+    DrawGraphForSimulation: function(series, visualisation){
+        // to merge with GraphDraw into a more generic solution after migration to vuejs
+        if (!selectedAreaObservable.currentValue) {
+            document.getElementById("simuInfoTitle").innerHTML = 'Select a department to show the graph'
+            return;
+        }
+        // this isn't really the best place to do it, but again, waiting vuejs to rework
+        var areaTitle=dataDEP.find(el=>el.code===selectedAreaObservable.currentValue).nom;
+        document.getElementById("simuInfoTitle").innerHTML=areaTitle + " (" + selectedAreaObservable.currentValue + ")<br>";
+
+        if(!series){
+            document.getElementById("simuInfoTitle").innerHTML += ' - pas de données';
+            document.getElementById("divSimGraph").innerHTML = '';
+            return;
+        }
+
+        // building data for graph, which is a list of "trace"
+        // each "trace" is an object with properties :
+        // - x : array of value on x axis
+        // - y : array of value on y axis
+        // - type : type of representation (bar, line, etc)
+        // - name : string to use for the legend of ths trace
+        const data = [];
+        for(const trace of visualisation.y){
+            const traceObject = {
+                ...trace.plotlyConf,
+                x: [],
+                y: [],
+            }
+            for(const timeData of series){
+                traceObject.x.push(visualisation.x.getField(timeData))
+                traceObject.y.push(trace.getField(timeData))
+            }
+            data.push(traceObject);
+        }
+
+        // build data from raw results and graph configuration
+        const graphConfig = {
+            title: visualisation.title,
+            xaxis: {
+                title: ''
+            },
+            yaxis: {
+                title: ''
+            },
+            showlegend: true,
+            legend: {
+                x: 0,
+                y: -0.2,
+                "orientation": "h"
+            },
+            margin: {
+                l: 50,
+                r: 5,
+                b: 5,
+                t: 50,
+                pad: 4
+            },
+
+        }
+        // draw graph
+        Plotly.newPlot('divSimGraph', data, graphConfig);
+    },
     //#endregion
 
     //#region SEARCH
@@ -546,43 +626,65 @@ var Do={
         document.getElementById("divSimFields").innerHTML=sHTML;
     },
     SimRun(n){
-        var sim=Simulations[n];
-        //CALL URL, DO URL replacement
-
-        //SHOW RESULTS
         var sHTML="";
-        sim.results.forEach(r=>{
-            var color="darkred";
-            switch (r.type) {
-                case "chart":
-                    color="darkblue";
-                    
-                    break;
-                case "table":
-                    color="darkgreen";
-                
-                    break;
-                case "map":
-                    color="orange";
-                
-                    break;
-                case "mapflow":
-                    color="purple";
-                
-                    break;
-                        
-                default:
-                    break;
+        var sim=Simulations[n];
+        // show a loading thingy while loading data
+        document.getElementById("divSimVisualisations").innerHTML="Loading...";
+        // load json from simulation run by calling backend
+        loadJSON(sim.url ,function(result){
+            const data = JSON.parse(result);
+            // transform data in an object to facilitate the series access by departement key instead ofdoing a search in an array each time
+            const dataObject = {}
+            for(const areaObject of data){
+                dataObject[areaObject.area] = areaObject;
             }
-            sHTML+=Card(r.title, r.description, "simpick", color, "Do.SimResult(" + n + ",'" + r.id + "')");
+            // show card to select visualisation for data when ready
+            sim.visualisations.forEach(r=>{
+                var color="darkred";
+                switch (r.type) {
+                    case "chart":
+                        color="darkblue";
+
+                        break;
+                    case "table":
+                        color="darkgreen";
+
+                        break;
+                    case "map":
+                        color="orange";
+
+                        break;
+                    case "mapflow":
+                        color="purple";
+
+                        break;
+
+                    default:
+                        break;
+                }
+                sHTML+=Card(r.title, r.description, "simpick", color, "Do.SimVisualisation(" + n + ",'" + r.id + "')");
+            });
+            sim.results = data;
+            document.getElementById("divSimVisualisations").innerHTML=sHTML;
         });
-        document.getElementById("divSimResults").innerHTML=sHTML;
     },
-    SimResult(nSim,id){
+    SimVisualisation(nSim,id){
+        // choice of a visualisation
         var sim=Simulations[nSim];
-        var res=sim.results.find(s=>s.id==id);
-        console.log("SimResult:" + res);
-        Do.mapFlow("");
+
+        // get the selected visualisation
+        var visualisation=sim.visualisations.find(s=>s.id===id);
+        console.log("SimVisualisation:", visualisation);
+
+        // ideally we would like to unsubsribe as soon as anything else than this simulation is shown,
+        // doing this as a lesser evil until we use a real framework
+        selectedAreaObservable.unsubscribe("Sim"+nSim);
+        // draw graph for currently selected area
+        Do.DrawGraphForSimulation(sim.results[selectedAreaObservable.currentValue] && sim.results[selectedAreaObservable.currentValue].series, visualisation);
+        // subscribe to area change to update the graph
+        selectedAreaObservable.subscribe("Sim"+nSim, function(selectedArea) {
+            Do.DrawGraphForSimulation(sim.results[selectedArea] &&sim.results[selectedArea].series, visualisation);
+        });
     },
     //#endregion
 
@@ -684,7 +786,7 @@ function detokenURL(url){
     var url1=url.replace("#YYYY#",YYYY);
     url1=url1.replace("#MM#",MM);
     url1=url1.replace("#DD#",DD);
-    url1=url1.replace("#AREA#",selectedArea);
+    url1=url1.replace("#AREA#",selectedAreaObservable.currentValue);
     return url1;
 }
 

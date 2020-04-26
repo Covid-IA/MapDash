@@ -12,3 +12,10 @@ TBD - To Be Documented
 - [Mapbox](https://www.mapbox.com/)
 - [Plotly](https://plotly.com/)
 - [Iconify](https://iconify.design/)
+
+### setup your dev environment
+
+this is temporary, but right now to use this app :
+go to /tools and run `npm install`
+set up an environment variable AUTH_KEY (ask the value to use to a colleague)
+run `npm start`

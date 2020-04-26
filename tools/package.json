@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "import geojson.js",
-  "scripts": {},
+  "scripts": {
+    "start": "env HOST=http://localhost:3000 env COVIDIA_DB_ENDPOINT=https://covid-ia-cosmos.documents.azure.com:443/ nodemon index.js"
+  },
   "author": "Luis Alves Martins",
   "license": "MIT",
   "dependencies": {
     "@azure/cosmos": "^3.6.3",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }

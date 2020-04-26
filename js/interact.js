@@ -27,6 +27,7 @@ var interact={
                     //sidebar.open('info')
                     Do.Info(e);
                     selectedArea=e.target.feature.properties.id;
+                    selectedAreaObservable.setValue(e.target.feature.properties.id)
                     if (selectedChart!=null){
                         await Do.GraphDraw(selectedChart);
                     }

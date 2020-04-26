@@ -5,11 +5,11 @@ const express=require('express');
 const config = require("./config");
 const cosmosDAO = require("./CosmosDBDAO");
 
-var cosmos;
+var cosmos,cosmosDEP;
 
 async function main(){
     const cosmosClient = new CosmosClient({
-        endpoint: config.host,
+        endpoint: config.databaseEndpoint,
         key: config.authKey
     })
 
@@ -18,6 +18,12 @@ async function main(){
 }
 
 var app=express();
+
+// temporary using the express server as a mock since the endpoint does not already exists in production
+app.get('/api/v2/simu', async function(req, res) {
+    res.send(require("./mock/simulation.json"))
+});
+
 
 app.get('/iris', async function (req, res) {
     var x1=req.query.x1;
@@ -39,7 +45,10 @@ app.get('/iris', async function (req, res) {
     var r=await cosmos.find(q);
     res.send(r);
 })
+//DELIVER THE SITE
+app.use('/map', express.static("../"));
 
 var server=app.listen(process.env.PORT || 3000);
 
 main();
+

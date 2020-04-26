@@ -5,7 +5,7 @@ async function initMapDash(configFile){
     dataSources=file.dataSources;
     GraphsDescription=file.charts;
     InfoFormats=file.info;
-    Simulations=file.simulations;
+    // Simulations=file.simulations; replaced by a js file for easier data manipulation, to change in vuejs
     GeoLayers=file.POIlayers;
     MAPSOURCE=file.map;
 

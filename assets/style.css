@@ -90,6 +90,13 @@ BODY {
     clear:both;
 }
 
+/* SIMU */
+#divSimVisualisations {
+    width:100%;
+    overflow-x: auto;
+    height: 90px;
+}
+
 /* GRAPHS */
 #divGraphSelection{
     display: block;

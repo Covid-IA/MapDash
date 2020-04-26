@@ -1,7 +1,7 @@
 {
     "menu.intro": "MapDash<br>Make your data live",
     "simulate.choose": "Choisissez Simulation pour exécuter",
-    "simulate.filter": "Données de filtre:",
+    "simulate.filter": "Rechercher une simulation:",
     "search.title": "Rechercher",
     "search.departments": "Rechercher Départments:",
     "layers.title": "Choose Layers to display",

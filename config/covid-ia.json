@@ -174,15 +174,15 @@
                 "type":"section"
             },
             {
+                "type":"mapflow",
+                "fieldTo":"to",
+                "fieldValue":"phones"
+            },
+            {
                 "type":"table",
                 "fields":["to","phones"],
                 "titles":["To Dep","# of phones"],
                 "width":["50px","auto"]
-            },
-            {
-                "type":"mapflow",
-                "fieldTo":"to",
-                "fieldValue":"phones"
             }
         ]
     },

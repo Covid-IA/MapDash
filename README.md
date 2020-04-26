@@ -1,5 +1,7 @@
 # MAP DASHBOARD
 
+Live at https://covidiaweb.blob.core.windows.net/map/index.html
+
 TBD - To Be Documented
 
 

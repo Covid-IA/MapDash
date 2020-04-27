@@ -12,8 +12,14 @@ async function initMapDash(configFile){
     //PERFORM PAGE TRANSLATION
     //await Translation.localize({language:"fr",path:"assets/translation"});
 
-    var dt=new Date();
-    dt.setDate( dt.getDate() - 1 )
+    try {
+        var lastUpdatedString=await loadJSONAsync("GET","https://covid-ia-appdata.azurewebsites.net/get/last_updated");
+        var dt=new Date(JSON.parse(lastUpdatedString).last_updated);
+    } catch (error) {
+        var dt=new Date();
+        dt.setDate( dt.getDate() - 1 )
+    }
+    
     document.getElementById("txtDate").value=dt.toISOString().substr(0,10);
     document.getElementById("mapid").style.height=window.innerHeight + "px";
     document.getElementById("mapid").style.width=window.innerWidth + "px";
@@ -90,8 +96,8 @@ async function initMapDash(configFile){
 
     // mymap.on("zoomend",processEvent);
     // mymap.on("moveend",processEvent);
-
-    Do.selMap(0);
+    
+    Do.selMap(MAPSOURCE.defaultDataSource);
     sidebar.open('intro')
 
     L.AddLabel = L.Icon.extend({

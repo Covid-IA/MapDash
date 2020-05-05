@@ -75,8 +75,9 @@ var Do={
     },
     _MapCoreDrawLayer:function(dataToShow, ar, format){
         if (flowPane!=null){
-            flowPane.destroy();
-            flowPane=null;
+            flowPane.hide();
+            // flowPane.destroy();
+            // flowPane=null;
         }
         var bDrawLabels=mapLayers.find(l=>l.id=="labels").display;
         var bDrawPolygons=mapLayers.find(l=>l.id=="polygons").display;

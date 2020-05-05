@@ -28,8 +28,7 @@
     <div id="sidebar" class="leaflet-sidebar collapsed">
         <div class="leaflet-sidebar-tabs">
             <ul role="tablist"> 
-                <!--COVIDIA-->
-                <li><a href="#intro" role="tab"><img src="assets/covidia.png" width=30px></a></li>
+                <li><a href="#intro" role="tab"><img src="assets/epidia.png" width="30px"></a></li>
                 <!--CHOOSE DATA-->
                 <li><a href="#data" role="tab"><div class="iconify" data-icon="mdi:database-search" data-inline="false"></div></a></li>
                 <!--INFO-->
@@ -51,21 +50,21 @@
         <!-- Tab panes -->
         <div class="leaflet-sidebar-content">
             <div class="leaflet-sidebar-pane" id="intro">
-                <img src="assets/covidia.png"><br>
+                <img src="assets/epidia.png" width="150px" style="margin:10px"><br>
 
-                <span data-localize="menu.intro1">Intro to the project and explain what you can do in the site and how you should start.<br>
+                <span data-localize="menu.intro1">Map Dashboard, fully configurable by changing a json file.<br>
                 Start by clicking on the data source selection:</span><a onclick="sidebar.open('data')"><div class="iconify" data-icon="mdi:database-search" data-inline="false"></div></a>
                 <br><br>
                 <div class="spaceBelow" data-localize="menu.exp">Menu explained:</div>
                 <div style="display:grid;grid-template-columns:40px auto;grid-auto-flow:row;">
                     <div class="iconify spaceBelow" data-icon="mdi:database-search" data-inline="false"></div>
                     <div data-localize="menu.data">Data selection. Select the data source to be displayed in the map.</div>
-                    <div class="iconify spaceBelow" data-icon="mdi:steering" data-inline="false"></div>
-                    <div data-localize="menu.sim">Perform simulations</div>
-                    <div class="iconify spaceBelow" data-icon="mdi:chart-line" data-inline="false"></div>
-                    <div data-localize="menu.charts">Display data in graphical format. The graphs available are dependent on the data source selected.</div>
                     <div class="iconify spaceBelow" data-icon="mdi:information-variant" data-inline="false"></div>
                     <div data-localize="menu.area">Info on the current area selection</div>
+                    <div class="iconify spaceBelow" data-icon="mdi:chart-line" data-inline="false"></div>
+                    <div data-localize="menu.charts">Display data in graphical format. The graphs available are dependent on the data source selected.</div>
+                    <div class="iconify spaceBelow" data-icon="mdi:steering" data-inline="false"></div>
+                    <div data-localize="menu.sim">Perform and display results of simulations</div>
                     <div class="iconify spaceBelow" data-icon="mdi:map-search-outline" data-inline="false"></div>
                     <div data-localize="menu.search">Search</div>
                     <div class="iconify spaceBelow" data-icon="mdi:layers-triple-outline" data-inline="false"></div>

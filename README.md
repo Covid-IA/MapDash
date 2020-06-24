@@ -5,9 +5,7 @@ Live at https://covidiaweb.blob.core.windows.net/map/index.html
 All the configuration is made just by changing the /config/config.json file
 
 
-
 TBD - To Be Documented, please refer to the source repo of MapDash for full documentation
-
 
 
 ### EXTERNAL LIBRARIES

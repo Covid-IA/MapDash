@@ -47,7 +47,7 @@
         "graphs":[]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true,
@@ -61,7 +61,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true,
@@ -75,7 +75,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true
@@ -88,7 +88,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true
@@ -101,7 +101,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true
@@ -114,7 +114,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true
@@ -127,7 +127,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true
@@ -140,7 +140,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true
@@ -153,7 +153,7 @@
         "graphs":["evolution","comparison","newcases"]
     },
     {
-        "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
+        "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/data/{YYYY}/{MM}/{DD}/00",
         "intervals":{
             "number":6,
             "round":true
@@ -339,7 +339,7 @@
         "type":"line",
         "needSelectedArea":true,
         "data":{
-            "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/until?yyyy={YYYY}&mm={MM}&dd={DD}&area={AREA}",
+            "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/until?yyyy={YYYY}&mm={MM}&dd={DD}&area={AREA}",
             "x":"date",
             "y":["data.total.deaths","data.total.recoveries","data.total.critical","data.total.hospital"],
             "titleX":"",
@@ -353,7 +353,7 @@
         "type":"bar",
         "needSelectedArea":true,
         "data":{
-            "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/until?yyyy={YYYY}&mm={MM}&dd={DD}&area={AREA}",
+            "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/until?yyyy={YYYY}&mm={MM}&dd={DD}&area={AREA}",
             "x":"date",
             "y":["data.men.total.deaths","data.women.total.deaths"],
             "titleX":"",
@@ -367,7 +367,7 @@
         "type":"line",
         "needSelectedArea":true,
         "data":{
-            "url":"https://covid-ia-appdata.azurewebsites.net/api/v2/get/until?yyyy={YYYY}&mm={MM}&dd={DD}&area={AREA}",
+            "url":"https://epidia-back-service.azurewebsites.net/api/v2/get/until?yyyy={YYYY}&mm={MM}&dd={DD}&area={AREA}",
             "x":"date",
             "y":["data.new.deaths","data.new.recoveries","data.new.critical","data.new.hospital"],
             "titleX":"",

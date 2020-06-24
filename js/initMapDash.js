@@ -13,7 +13,7 @@ async function initMapDash(configFile){
     //await Translation.localize({language:"fr",path:"assets/translation"});
 
     try {
-        var lastUpdatedString=await loadJSONAsync("GET","https://covid-ia-appdata.azurewebsites.net/get/last_updated");
+        var lastUpdatedString=await loadJSONAsync("GET","https://epidiastorage.blob.core.windows.net/get/last_updated");
         var dt=new Date(JSON.parse(lastUpdatedString).last_updated);
     } catch (error) {
         var dt=new Date();
